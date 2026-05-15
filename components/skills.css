@@ -1,0 +1,44 @@
+/* ========================================
+   SKILLS COMPONENT — ENHANCED BENTO
+   ======================================== */
+.skills-bento{display:grid;grid-template-columns:repeat(3,1fr);gap:1.2rem}
+.sk-card{background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius-lg);padding:2rem;position:relative;overflow:hidden;transition:all .4s var(--ease)}
+.sk-card::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,var(--accent-glow),transparent 60%);opacity:0;transition:opacity .4s;border-radius:var(--radius-lg)}
+.sk-card:hover{border-color:var(--border-hover);transform:translateY(-4px);box-shadow:0 20px 50px rgba(0,0,0,0.25)}
+.sk-card:hover::before{opacity:1}
+.sk-card>*{position:relative;z-index:1}
+
+/* Featured card spans 2 cols */
+.sk-featured{grid-column:span 2;background:linear-gradient(135deg,rgba(129,140,248,0.06),rgba(167,139,250,0.03),var(--bg-card));border-color:rgba(129,140,248,0.12)}
+.sk-featured::after{content:'';position:absolute;top:0;left:0;width:100%;height:3px;background:linear-gradient(90deg,var(--accent),#a78bfa,#c084fc,transparent);border-radius:3px 3px 0 0}
+
+/* Icon orbs with animated glow */
+.sk-glow-orb{width:48px;height:48px;border-radius:14px;display:flex;align-items:center;justify-content:center;font-size:1.2rem;color:#fff;margin-bottom:1rem;background:linear-gradient(135deg,var(--accent),#6366f1);box-shadow:0 6px 20px rgba(129,140,248,0.3);animation:orbPulse 3s ease-in-out infinite}
+.sk-orb-cyan{background:linear-gradient(135deg,#22d3ee,#06b6d4);box-shadow:0 6px 20px rgba(34,211,238,0.3)}
+.sk-orb-amber{background:linear-gradient(135deg,#fbbf24,#f59e0b);box-shadow:0 6px 20px rgba(251,191,36,0.3)}
+.sk-orb-emerald{background:linear-gradient(135deg,#34d399,#10b981);box-shadow:0 6px 20px rgba(52,211,153,0.3)}
+.sk-orb-rose{background:linear-gradient(135deg,#fb7185,#f43f5e);box-shadow:0 6px 20px rgba(251,113,133,0.3)}
+.sk-orb-sky{background:linear-gradient(135deg,#38bdf8,#0ea5e9);box-shadow:0 6px 20px rgba(56,189,248,0.3)}
+@keyframes orbPulse{0%,100%{box-shadow:0 6px 20px rgba(129,140,248,0.3)}50%{box-shadow:0 8px 30px rgba(129,140,248,0.5)}}
+
+/* Card header with badge */
+.sk-card-header{display:flex;align-items:center;gap:.8rem;margin-bottom:.6rem;flex-wrap:wrap}
+.sk-card-name{font-family:var(--font-display);font-size:1.05rem;font-weight:700}
+.sk-card-badge{padding:.2rem .7rem;border-radius:100px;font-size:.65rem;font-weight:700;background:linear-gradient(135deg,var(--accent),#a78bfa);color:#000;text-transform:uppercase;letter-spacing:1px}
+.sk-card-desc{font-size:.85rem;color:var(--text-secondary);margin-bottom:1rem;line-height:1.7}
+
+/* Enhanced skill chips with icons */
+.sk-chips{display:flex;flex-wrap:wrap;gap:.5rem}
+.sk-chip{padding:.4rem .85rem;border-radius:10px;font-size:.8rem;font-weight:500;background:var(--white-05);color:var(--text-secondary);border:1px solid var(--border);transition:all .3s var(--ease);cursor:default;backdrop-filter:blur(4px);display:inline-flex;align-items:center;gap:.4rem}
+.sk-chip i{font-size:.75rem;opacity:.7}
+.sk-chip:hover{background:var(--accent-dim);color:var(--accent);border-color:rgba(129,140,248,0.25);transform:translateY(-2px);box-shadow:0 4px 12px rgba(129,140,248,0.15)}
+.sk-chip-glow{background:var(--accent-dim);color:var(--accent);border-color:rgba(129,140,248,0.2)}
+.sk-chip-glow:hover{background:rgba(129,140,248,0.2);border-color:rgba(129,140,248,0.4);box-shadow:0 4px 18px rgba(129,140,248,0.25)}
+
+/* Languages inline bar */
+.sk-lang-bar{display:flex;gap:.6rem;align-items:center;flex-wrap:wrap;margin-top:.6rem}
+.sk-lang-item{display:flex;align-items:center;gap:.5rem;padding:.5rem 1rem;border-radius:10px;background:var(--white-05);border:1px solid var(--border);transition:all .3s var(--ease)}
+.sk-lang-item:hover{border-color:var(--accent);transform:translateY(-2px)}
+.sk-lang-icon{width:22px;height:22px;border-radius:5px;display:flex;align-items:center;justify-content:center;font-size:.7rem;color:#fff;font-weight:700}
+.sk-lang-name{font-size:.82rem;font-weight:600;color:var(--text)}
+.sk-lang-level{font-size:.68rem;color:var(--text-secondary)}

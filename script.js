@@ -58,9 +58,21 @@ navLinks.querySelectorAll('a').forEach(a => {
   });
 });
 
-// ===== SCROLL REVEAL =====
+// ===== SCROLL REVEAL with stagger =====
 const revealObs = new IntersectionObserver(entries => {
-  entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('active'); });
+  entries.forEach((e, i) => {
+    if (e.isIntersecting) {
+      // Add stagger delay for project cards
+      const card = e.target;
+      const parent = card.parentElement;
+      if (parent && (parent.classList.contains('project-trio') || parent.classList.contains('project-duo'))) {
+        const siblings = Array.from(parent.children);
+        const idx = siblings.indexOf(card);
+        card.style.transitionDelay = (idx * 0.1) + 's';
+      }
+      card.classList.add('active');
+    }
+  });
 }, { threshold: 0.08, rootMargin: '0px 0px -40px 0px' });
 
 document.querySelectorAll('.reveal').forEach(el => revealObs.observe(el));
@@ -92,16 +104,58 @@ document.querySelectorAll('.bento-big, .stat-number').forEach(el => {
   if (el.dataset.count) counterObs.observe(el);
 });
 
-// ===== MAGNETIC BUTTONS =====
+// ===== RIPPLE EFFECT ON BUTTONS =====
+document.querySelectorAll('.btn').forEach(btn => {
+  btn.addEventListener('click', function(e) {
+    const ripple = document.createElement('span');
+    ripple.classList.add('ripple');
+    const rect = this.getBoundingClientRect();
+    ripple.style.left = (e.clientX - rect.left) + 'px';
+    ripple.style.top = (e.clientY - rect.top) + 'px';
+    this.appendChild(ripple);
+    setTimeout(() => ripple.remove(), 600);
+  });
+});
+
+// ===== MAGNETIC BUTTONS with spring physics =====
 document.querySelectorAll('.btn-fill, .nav-cta').forEach(btn => {
+  let animFrame;
+  let tx = 0, ty = 0, cx = 0, cy = 0;
+  
   btn.addEventListener('mousemove', e => {
     const rect = btn.getBoundingClientRect();
-    const x = e.clientX - rect.left - rect.width / 2;
-    const y = e.clientY - rect.top - rect.height / 2;
-    btn.style.transform = `translate(${x * 0.15}px, ${y * 0.15}px)`;
+    tx = (e.clientX - rect.left - rect.width / 2) * 0.15;
+    ty = (e.clientY - rect.top - rect.height / 2) * 0.15;
+    
+    if (!animFrame) {
+      (function spring() {
+        cx += (tx - cx) * 0.15;
+        cy += (ty - cy) * 0.15;
+        btn.style.transform = `translate(${cx}px, ${cy}px)`;
+        if (Math.abs(tx - cx) > 0.1 || Math.abs(ty - cy) > 0.1) {
+          animFrame = requestAnimationFrame(spring);
+        } else {
+          animFrame = null;
+        }
+      })();
+    }
   });
+  
   btn.addEventListener('mouseleave', () => {
-    btn.style.transform = '';
+    tx = 0; ty = 0;
+    if (!animFrame) {
+      (function springBack() {
+        cx += (0 - cx) * 0.15;
+        cy += (0 - cy) * 0.15;
+        btn.style.transform = `translate(${cx}px, ${cy}px)`;
+        if (Math.abs(cx) > 0.1 || Math.abs(cy) > 0.1) {
+          animFrame = requestAnimationFrame(springBack);
+        } else {
+          btn.style.transform = '';
+          animFrame = null;
+        }
+      })();
+    }
   });
 });
 
@@ -118,12 +172,40 @@ document.querySelectorAll('.project-showcase, .project-card').forEach(card => {
   });
 });
 
+// ===== SKILL CHIP HOVER SOUND FEEDBACK (visual) =====
+document.querySelectorAll('.sk-chip').forEach(chip => {
+  chip.addEventListener('mouseenter', () => {
+    chip.style.transition = 'all .15s ease-out';
+  });
+  chip.addEventListener('mouseleave', () => {
+    chip.style.transition = 'all .3s var(--ease)';
+  });
+});
+
 // ===== CONTACT FORM =====
 document.getElementById('contact-form').addEventListener('submit', e => {
   e.preventDefault();
   const btn = e.target.querySelector('button');
   const orig = btn.innerHTML;
-  btn.innerHTML = '✓ Sent!';
-  btn.style.background = '#059669';
+  btn.innerHTML = '<i class="fa-solid fa-check"></i> Message Sent!';
+  btn.style.background = 'linear-gradient(135deg, #34d399, #10b981)';
   setTimeout(() => { btn.innerHTML = orig; btn.style.background = ''; e.target.reset(); }, 2500);
+});
+
+// ===== SMOOTH SCROLL for anchor links =====
+document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+  anchor.addEventListener('click', function(e) {
+    const target = document.querySelector(this.getAttribute('href'));
+    if (target) {
+      e.preventDefault();
+      target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  });
+});
+
+// ===== GITHUB STATS IMAGE ERROR HANDLING =====
+document.querySelectorAll('.github-imgs img').forEach(img => {
+  img.addEventListener('error', function() {
+    this.style.display = 'none';
+  });
 });

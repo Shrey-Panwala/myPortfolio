@@ -1,0 +1,47 @@
+/* ========================================
+   PROJECTS COMPONENT — ENHANCED
+   ======================================== */
+
+/* Featured showcase (full-width hero project) */
+.project-showcase{display:grid;grid-template-columns:1.1fr 1fr;background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius-lg);overflow:hidden;transition:all .5s var(--ease);position:relative}
+.project-showcase::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,var(--accent-glow),transparent 50%);opacity:0;transition:opacity .4s;z-index:0}
+.project-showcase:hover{border-color:rgba(129,140,248,0.25);transform:translateY(-6px);box-shadow:0 25px 80px rgba(129,140,248,0.1),0 10px 30px rgba(0,0,0,0.3)}
+.project-showcase:hover::before{opacity:1}
+.project-showcase>*{position:relative;z-index:1}
+.project-showcase-img{position:relative;overflow:hidden;min-height:380px}
+.project-showcase-img img{width:100%;height:100%;object-fit:cover;transition:transform .6s var(--ease)}
+.project-showcase:hover .project-showcase-img img{transform:scale(1.05)}
+.project-showcase-overlay{position:absolute;inset:0;background:linear-gradient(135deg,rgba(30,27,75,0.4),rgba(129,140,248,0.1));pointer-events:none}
+.project-featured-badge{position:absolute;top:1rem;left:1rem;padding:.4rem .9rem;border-radius:100px;font-size:.72rem;font-weight:700;background:linear-gradient(135deg,var(--accent),#a78bfa);color:#000;display:flex;align-items:center;gap:.4rem;box-shadow:0 4px 15px rgba(129,140,248,0.3);z-index:2}
+.project-hackathon-badge{position:absolute;top:1rem;left:1rem;padding:.4rem .9rem;border-radius:100px;font-size:.72rem;font-weight:700;background:linear-gradient(135deg,#f59e0b,#d97706);color:#000;display:flex;align-items:center;gap:.4rem;box-shadow:0 4px 15px rgba(245,158,11,0.3);z-index:2}
+.project-new-badge{position:absolute;top:1rem;right:1rem;padding:.4rem .9rem;border-radius:100px;font-size:.72rem;font-weight:700;background:linear-gradient(135deg,#34d399,#10b981);color:#000;display:flex;align-items:center;gap:.4rem;box-shadow:0 4px 15px rgba(52,211,153,0.3);z-index:2}
+.project-showcase-info{padding:2.5rem;display:flex;flex-direction:column;justify-content:center}
+.project-num{font-family:var(--font-display);font-size:.8rem;color:var(--accent);font-weight:700;margin-bottom:.5rem}
+.project-name{font-family:var(--font-display);font-size:1.35rem;font-weight:700;margin-bottom:.7rem;letter-spacing:-.5px}
+.project-desc{font-size:.88rem;color:var(--text-secondary);line-height:1.8;margin-bottom:1rem}
+.project-highlights{display:flex;flex-direction:column;gap:.5rem;margin-bottom:1.2rem;padding:.8rem;background:var(--white-05);border-radius:10px}
+.project-highlight-item{font-size:.8rem;color:var(--text-secondary);display:flex;align-items:center;gap:.6rem}
+.project-highlight-item i{color:var(--accent);font-size:.7rem;width:14px}
+.project-tags{display:flex;flex-wrap:wrap;gap:.35rem;margin-bottom:1.2rem}
+.ptag{padding:.2rem .6rem;border-radius:6px;font-size:.7rem;font-weight:600;background:var(--accent-dim);color:var(--accent);border:1px solid rgba(129,140,248,0.15);transition:all .3s}
+.ptag:hover{background:rgba(129,140,248,0.2);border-color:rgba(129,140,248,0.3);transform:translateY(-1px)}
+.project-actions{display:flex;gap:.8rem;flex-wrap:wrap}
+
+/* Side-by-side card pairs */
+.project-duo{display:grid;grid-template-columns:1fr 1fr;gap:1.5rem;margin-top:1.5rem}
+.project-card{background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius-lg);overflow:hidden;transition:all .5s var(--ease);position:relative}
+.project-card::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,var(--accent-glow),transparent 50%);opacity:0;transition:opacity .4s;z-index:0}
+.project-card:hover{border-color:rgba(129,140,248,0.25);transform:translateY(-6px);box-shadow:0 25px 80px rgba(129,140,248,0.1),0 10px 30px rgba(0,0,0,0.3)}
+.project-card:hover::before{opacity:1}
+.project-card>*{position:relative;z-index:1}
+.project-card-img{position:relative;height:220px;overflow:hidden}
+.project-card-img img{width:100%;height:100%;object-fit:cover;transition:transform .6s var(--ease)}
+.project-card:hover .project-card-img img{transform:scale(1.05)}
+.project-card-body{padding:2rem}
+
+/* 3-column grid for smaller cards */
+.project-trio{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem;margin-top:1.5rem}
+.project-trio .project-card-img{height:180px}
+.project-trio .project-card-body{padding:1.5rem}
+.project-trio .project-name{font-size:1.15rem}
+.project-trio .project-desc{font-size:.82rem;line-height:1.7}
