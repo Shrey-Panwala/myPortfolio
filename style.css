@@ -1,5 +1,5 @@
 /* ========================================
-   DESIGN SYSTEM — Core Tokens & Utilities
+   DESIGN SYSTEM - Core Tokens & Utilities
    ======================================== */
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Sora:wght@400;600;700;800&display=swap');
 
@@ -29,6 +29,9 @@
 html{scroll-behavior:smooth}
 body{font-family:var(--font);background:var(--bg);color:var(--text);overflow-x:hidden;line-height:1.7;-webkit-font-smoothing:antialiased}
 ::selection{background:var(--accent);color:#000}
+.skip-link{position:fixed;top:.8rem;left:.8rem;z-index:10000;padding:.65rem 1rem;border-radius:8px;background:var(--accent);color:#000;font-weight:700;text-decoration:none;transform:translateY(-150%);transition:transform .2s var(--ease)}
+.skip-link:focus{transform:translateY(0)}
+a:focus-visible,button:focus-visible,input:focus-visible,textarea:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
 
 /* Film grain overlay */
 body::after{content:'';position:fixed;inset:0;z-index:9998;pointer-events:none;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");opacity:.5}
@@ -46,6 +49,7 @@ body:hover .cursor-glow{opacity:1}
 
 /* Section layout */
 section{padding:7rem 2rem;position:relative;z-index:1}
+section[id]{scroll-margin-top:84px}
 .container{max-width:var(--max-w);margin:0 auto}
 .sec-label{font-size:.75rem;font-weight:600;color:var(--accent);text-transform:uppercase;letter-spacing:3px;margin-bottom:.8rem}
 .sec-title{font-family:var(--font-display);font-size:clamp(1.8rem,4vw,2.6rem);font-weight:700;letter-spacing:-1px;margin-bottom:.8rem}
@@ -54,12 +58,13 @@ section{padding:7rem 2rem;position:relative;z-index:1}
 /* Reveal animation */
 .reveal{opacity:0;transform:translateY(30px);transition:opacity .7s var(--ease),transform .7s var(--ease)}
 .reveal.active{opacity:1;transform:translateY(0)}
+.reveal.preload-visible{opacity:1;transform:none}
 .reveal-delay-1{transition-delay:.1s}
 .reveal-delay-2{transition-delay:.2s}
 .reveal-delay-3{transition-delay:.3s}
 
 /* ========================================
-   BUTTONS — Enhanced with ripple
+   BUTTONS - Enhanced with ripple
    ======================================== */
 .btn{padding:.8rem 1.8rem;border-radius:10px;font-size:.92rem;font-weight:600;cursor:pointer;text-decoration:none;transition:all .3s var(--ease);font-family:var(--font);display:inline-flex;align-items:center;gap:.5rem;border:none;position:relative;overflow:hidden}
 .btn::after{content:'';position:absolute;inset:0;background:linear-gradient(90deg,transparent,rgba(255,255,255,0.1),transparent);transform:translateX(-100%);transition:none}
@@ -80,7 +85,7 @@ section{padding:7rem 2rem;position:relative;z-index:1}
 @keyframes fadeUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
 
 /* ========================================
-   RESPONSIVE — TABLET
+   RESPONSIVE - TABLET
    ======================================== */
 @media(max-width:1024px){
   .about-layout{grid-template-columns:1fr}
@@ -92,10 +97,11 @@ section{padding:7rem 2rem;position:relative;z-index:1}
   .project-showcase-img{min-height:260px}
   .project-duo{grid-template-columns:1fr 1fr}
   .project-trio{grid-template-columns:1fr 1fr}
+  .research-proof{grid-template-columns:1fr}
   .contact-grid{grid-template-columns:1fr}
 }
 
-/* RESPONSIVE — MOBILE */
+/* RESPONSIVE - MOBILE */
 @media(max-width:768px){
   .navbar{padding:.8rem 1.2rem}
   .nav-links{display:none;position:fixed;inset:0;background:rgba(12,12,12,0.97);backdrop-filter:blur(16px);flex-direction:column;align-items:center;justify-content:center;gap:2rem}
@@ -105,8 +111,13 @@ section{padding:7rem 2rem;position:relative;z-index:1}
   .hamburger.active span:nth-child(2){opacity:0}
   .hamburger.active span:nth-child(3){transform:rotate(-45deg) translate(5px,-5px)}
   section{padding:4rem 1.2rem}
-  .hero{padding:6rem 1.2rem 3rem}
-  .hero-name{letter-spacing:-1px}
+  .hero{min-height:86svh;align-items:flex-start;justify-content:flex-start;padding:5.6rem 1.2rem 2.8rem}
+  .hero-content{width:100%;max-width:560px;text-align:left}
+  .hero-badge{margin-bottom:1.2rem}
+  .hero-name{max-width:10ch;font-size:clamp(1.8rem,7.7vw,2.25rem);line-height:1.12;letter-spacing:0;margin-left:0;margin-right:0;text-wrap:auto;overflow-wrap:break-word}
+  .hero-sub{font-size:.95rem;max-width:100%;margin-left:0;margin-right:0;margin-bottom:1.35rem;color:#a6a6a6}
+  .hero-ctas{justify-content:flex-start}
+  .hero-scroll{display:none}
   .about-layout{grid-template-columns:1fr}
   .about-stats{grid-template-columns:1fr 1fr}
   .stat-card.stat-highlight{grid-column:span 2}
@@ -126,17 +137,29 @@ section{padding:7rem 2rem;position:relative;z-index:1}
   .github-stats-row{grid-template-columns:repeat(3,1fr);gap:.6rem}
   .github-imgs{flex-direction:column;align-items:center}
   .github-imgs img{width:100%}
-  .footer-inner{flex-direction:column;gap:1.2rem;text-align:center}
-  .footer-left{align-items:center}
+  .footer-inner{grid-template-columns:1fr;gap:1.2rem;text-align:center}
+  .footer-left,.footer-right{align-items:center}
+  .footer-center{justify-content:center}
 }
 
-/* RESPONSIVE — SMALL MOBILE */
+/* RESPONSIVE - SMALL MOBILE */
 @media(max-width:480px){
   .about-stats{grid-template-columns:1fr}
   .stat-card.stat-highlight{grid-column:span 1}
-  .hero-ctas{flex-direction:column;align-items:center}
+  .hero{padding-top:5.2rem}
+  .hero-content{max-width:340px}
+  .hero-ctas{flex-direction:column;align-items:stretch}
+  .hero-content{text-align:left}
   .btn{width:100%;justify-content:center}
   .project-highlights{padding:.6rem}
   .project-tags{gap:.25rem}
   .sk-card{padding:1.5rem}
+  .github-stats-row{grid-template-columns:1fr}
+}
+
+@media(prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  *,*::before,*::after{animation-duration:.001ms!important;animation-iteration-count:1!important;scroll-behavior:auto!important;transition-duration:.001ms!important}
+  .cursor-glow,.hero-particles{display:none}
+  .reveal{opacity:1;transform:none}
 }
