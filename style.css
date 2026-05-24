@@ -26,7 +26,7 @@
 
 /* Reset */
 *,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
-html{scroll-behavior:smooth}
+html{scroll-behavior:auto}
 body{font-family:var(--font);background:var(--bg);color:var(--text);overflow-x:hidden;line-height:1.7;-webkit-font-smoothing:antialiased}
 ::selection{background:var(--accent);color:#000}
 .skip-link{position:fixed;top:.8rem;left:.8rem;z-index:10000;padding:.65rem 1rem;border-radius:8px;background:var(--accent);color:#000;font-weight:700;text-decoration:none;transform:translateY(-150%);transition:transform .2s var(--ease)}
@@ -35,9 +35,6 @@ a:focus-visible,button:focus-visible,input:focus-visible,textarea:focus-visible{
 
 /* Film grain overlay */
 body::after{content:'';position:fixed;inset:0;z-index:9998;pointer-events:none;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");opacity:.5}
-
-/* Scroll progress */
-#scroll-progress{position:fixed;top:0;left:0;height:3px;background:linear-gradient(90deg,var(--accent),#a78bfa,#c084fc);width:0%;z-index:9999;border-radius:0 2px 2px 0;box-shadow:0 0 10px var(--accent)}
 
 /* Cursor glow */
 .cursor-glow{position:fixed;width:500px;height:500px;border-radius:50%;pointer-events:none;background:radial-gradient(circle,var(--accent-glow) 0%,transparent 70%);transform:translate(-50%,-50%);z-index:0;transition:opacity .3s;opacity:0}
@@ -117,7 +114,6 @@ section[id]{scroll-margin-top:84px}
   .hero-name{max-width:10ch;font-size:clamp(1.8rem,7.7vw,2.25rem);line-height:1.12;letter-spacing:0;margin-left:0;margin-right:0;text-wrap:auto;overflow-wrap:break-word}
   .hero-sub{font-size:.95rem;max-width:100%;margin-left:0;margin-right:0;margin-bottom:1.35rem;color:#a6a6a6}
   .hero-ctas{justify-content:flex-start}
-  .hero-scroll{display:none}
   .about-layout{grid-template-columns:1fr}
   .about-stats{grid-template-columns:1fr 1fr}
   .stat-card.stat-highlight{grid-column:span 2}
@@ -135,8 +131,6 @@ section[id]{scroll-margin-top:84px}
   .github-wrap{padding:2rem 1.2rem}
   .github-header{flex-direction:column;text-align:center}
   .github-stats-row{grid-template-columns:repeat(3,1fr);gap:.6rem}
-  .github-imgs{flex-direction:column;align-items:center}
-  .github-imgs img{width:100%}
   .footer-inner{grid-template-columns:1fr;gap:1.2rem;text-align:center}
   .footer-left,.footer-right{align-items:center}
   .footer-center{justify-content:center}

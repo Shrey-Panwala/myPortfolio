@@ -36,11 +36,6 @@ const hamburger = document.getElementById('hamburger');
 const navLinks = document.getElementById('nav-links');
 
 window.addEventListener('scroll', () => {
-  // Scroll progress
-  const h = document.documentElement;
-  const pct = (h.scrollTop / (h.scrollHeight - h.clientHeight)) * 100;
-  document.getElementById('scroll-progress').style.width = pct + '%';
-
   // Active nav link
   document.querySelectorAll('section[id]').forEach(sec => {
     const top = sec.offsetTop - 200;
@@ -63,28 +58,8 @@ navLinks.querySelectorAll('a').forEach(a => {
   });
 });
 
-// ===== SCROLL REVEAL with stagger =====
-if (prefersReducedMotion) {
-  document.querySelectorAll('.reveal').forEach(el => el.classList.add('active'));
-} else {
-  const revealObs = new IntersectionObserver(entries => {
-    entries.forEach(e => {
-      if (e.isIntersecting) {
-        // Add stagger delay for project cards
-        const card = e.target;
-        const parent = card.parentElement;
-        if (parent && (parent.classList.contains('project-trio') || parent.classList.contains('project-duo'))) {
-          const siblings = Array.from(parent.children);
-          const idx = siblings.indexOf(card);
-          card.style.transitionDelay = (idx * 0.1) + 's';
-        }
-        card.classList.add('active');
-      }
-    });
-  }, { threshold: 0.08, rootMargin: '0px 0px -40px 0px' });
-
-  document.querySelectorAll('.reveal').forEach(el => revealObs.observe(el));
-}
+// ===== REVEAL ELEMENTS (no scroll-triggered animation) =====
+document.querySelectorAll('.reveal').forEach(el => el.classList.add('active'));
 
 window.addEventListener('load', () => {
   if (window.location.hash) {
@@ -224,20 +199,80 @@ document.getElementById('contact-form').addEventListener('submit', e => {
   setTimeout(() => { btn.innerHTML = orig; }, 2000);
 });
 
-// ===== SMOOTH SCROLL for anchor links =====
-document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-  anchor.addEventListener('click', function(e) {
-    const target = document.querySelector(this.getAttribute('href'));
-    if (target) {
-      e.preventDefault();
-      target.scrollIntoView({ behavior: 'smooth', block: 'start' });
-    }
-  });
-});
+// ===== GITHUB LIVE STATS =====
+async function loadGitHubStats(username) {
+  const reposEl = document.getElementById('gh-repos');
+  const starsEl = document.getElementById('gh-stars');
+  const topLanguageEl = document.getElementById('gh-top-language');
+  const followersEl = document.getElementById('gh-followers');
+  const followingEl = document.getElementById('gh-following');
+  const gistsEl = document.getElementById('gh-gists');
+  const langList = document.getElementById('gh-language-list');
+  const note = document.getElementById('gh-note');
+  const updated = document.getElementById('gh-updated');
+  const fallback = document.getElementById('gh-fallback');
 
-// ===== GITHUB STATS IMAGE ERROR HANDLING =====
-document.querySelectorAll('.github-imgs img').forEach(img => {
-  img.addEventListener('error', function() {
-    this.style.display = 'none';
+  if (!reposEl || !starsEl || !topLanguageEl) return;
+
+  try {
+    const [userRes, reposRes] = await Promise.all([
+      fetch(`https://api.github.com/users/${username}`),
+      fetch(`https://api.github.com/users/${username}/repos?per_page=100&type=owner&sort=updated`)
+    ]);
+
+    if (!userRes.ok || !reposRes.ok) throw new Error('GitHub API request failed');
+
+    const user = await userRes.json();
+    const repos = await reposRes.json();
+    const totalStars = repos.reduce((sum, repo) => sum + (repo.stargazers_count || 0), 0);
+
+    const languageCount = {};
+    repos.forEach(repo => {
+      if (!repo.language) return;
+      languageCount[repo.language] = (languageCount[repo.language] || 0) + 1;
+    });
+
+    const sortedLanguages = Object.entries(languageCount).sort((a, b) => b[1] - a[1]);
+    const topLanguage = sortedLanguages.length ? sortedLanguages[0][0] : 'N/A';
+
+    reposEl.textContent = String(user.public_repos ?? repos.length);
+    starsEl.textContent = String(totalStars);
+    topLanguageEl.textContent = topLanguage;
+
+    if (followersEl) followersEl.textContent = String(user.followers ?? 0);
+    if (followingEl) followingEl.textContent = String(user.following ?? 0);
+    if (gistsEl) gistsEl.textContent = String(user.public_gists ?? 0);
+
+    if (langList) {
+      langList.innerHTML = '';
+      sortedLanguages.slice(0, 6).forEach(([language, count]) => {
+        const chip = document.createElement('span');
+        chip.className = 'gh-lang-chip';
+        chip.textContent = `${language} (${count})`;
+        langList.appendChild(chip);
+      });
+    }
+
+    if (note) note.textContent = 'Live data powered by the GitHub public API.';
+    if (updated) updated.textContent = `Last updated: ${new Date().toLocaleString()}`;
+    if (fallback) fallback.hidden = true;
+  } catch (err) {
+    if (note) note.textContent = 'Unable to fetch live GitHub data.';
+    if (updated) updated.textContent = '';
+    if (fallback) fallback.hidden = false;
+    console.error(err);
+  }
+}
+
+loadGitHubStats('Shrey-Panwala');
+
+// ===== BACK TO TOP (keep smooth animation only here) =====
+const backToTopLink = document.querySelector('.back-to-top');
+if (backToTopLink) {
+  backToTopLink.addEventListener('click', e => {
+    const target = document.querySelector(backToTopLink.getAttribute('href'));
+    if (!target) return;
+    e.preventDefault();
+    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
   });
-});
+}

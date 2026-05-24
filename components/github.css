@@ -14,10 +14,13 @@
 .gh-stat-val{font-family:var(--font-display);font-size:1.3rem;font-weight:700;color:var(--text)}
 .gh-stat-label{font-size:.7rem;color:var(--text-secondary);text-transform:uppercase;letter-spacing:1px;margin-top:.2rem}
 
-/* Stats images with loading shimmer */
-.github-imgs{display:flex;flex-wrap:wrap;gap:1.2rem;justify-content:center;margin:0 0 2rem}
-.github-imgs img{border-radius:var(--radius);transition:transform .3s;max-width:100%;border:1px solid var(--border);background:var(--bg-card)}
-.github-imgs img:hover{transform:translateY(-3px)}
-.github-imgs img[src]{animation:shimmerLoad 1.5s ease-out}
-@keyframes shimmerLoad{from{opacity:0;filter:blur(4px)}to{opacity:1;filter:blur(0)}}
+.github-live-meta{display:flex;flex-wrap:wrap;gap:.7rem;justify-content:center;margin:0 0 1rem}
+.gh-meta-pill{padding:.4rem .8rem;border-radius:999px;border:1px solid var(--border);background:var(--white-05);font-size:.82rem;color:var(--text-secondary);display:inline-flex;align-items:center;gap:.45rem}
+.gh-meta-pill strong{color:var(--text);font-weight:700}
+.gh-meta-pill i{color:var(--accent)}
+.github-note{font-size:.82rem;color:var(--text-secondary);text-align:center;margin:0 0 1rem}
+.github-lang-list{display:flex;flex-wrap:wrap;justify-content:center;gap:.5rem;margin:0 0 .8rem}
+.gh-lang-chip{padding:.3rem .75rem;border-radius:999px;border:1px solid rgba(129,140,248,0.22);background:var(--accent-dim);color:var(--accent);font-size:.76rem;font-weight:600}
+.github-updated{font-size:.74rem;color:var(--text-secondary);text-align:center;margin:0 0 1.3rem}
+.github-fallback{font-size:.8rem;color:#ffb4b4;text-align:center;margin:0 0 1.3rem}
 .github-action{text-align:center}

@@ -55,10 +55,9 @@
 
 <a href="#main" class="skip-link">Skip to content</a>
 <div class="cursor-glow" id="cursor-glow"></div>
-<div id="scroll-progress"></div>
 
 <nav class="navbar" id="navbar">
-  <a href="#hero" class="nav-logo" aria-label="Shrey Panwala home">shrey.ai</a>
+  <a href="#hero" class="nav-logo" aria-label="Shrey Panwala home">Shrey Panwala</a>
   <ul class="nav-links" id="nav-links">
     <li><a href="#about">About</a></li>
     <li><a href="#skills">Skills</a></li>
@@ -84,7 +83,6 @@
         <a href="#contact" class="btn btn-ghost"><i class="fa-solid fa-paper-plane" aria-hidden="true"></i> Get in touch</a>
       </div>
     </div>
-    <div class="hero-scroll"><span>Scroll</span><div class="scroll-line"></div></div>
   </section>
 
   <section id="about">
@@ -410,19 +408,19 @@
           <p class="ach-desc">ML-driven solution for soil analysis and crop yield prediction.</p>
         </div>
         <div class="ach-item reveal">
-          <div class="ach-icon"><i class="fa-solid fa-certificate" aria-hidden="true"></i></div>
+          <div class="ach-icon"><i class="fa-solid fa-brain" aria-hidden="true"></i></div>
           <div class="ach-name">Generative Adversarial Networks (GANs)</div>
           <div class="ach-sub">Coursera &middot; DeepLearning.AI</div>
           <p class="ach-desc">Built basic and advanced GANs, applied them for image translation and synthesis.</p>
         </div>
         <div class="ach-item reveal">
-          <div class="ach-icon"><i class="fa-solid fa-certificate" aria-hidden="true"></i></div>
+          <div class="ach-icon"><i class="fa-solid fa-book-open-reader" aria-hidden="true"></i></div>
           <div class="ach-name">ML + DL + NLP Specializations</div>
           <div class="ach-sub">Coursera &middot; DeepLearning.AI <a href="https://www.coursera.org/user/d44a21986524d5d21c3686edab9c70c2" target="_blank" rel="noopener noreferrer" aria-label="View Coursera profile"><i class="fa-solid fa-arrow-up-right-from-square" aria-hidden="true"></i></a></div>
           <p class="ach-desc">Supervised ML, Neural Networks, CNNs, RNNs, NLP Classification, Attention Models.</p>
         </div>
         <div class="ach-item reveal">
-          <div class="ach-icon"><i class="fa-solid fa-bolt" aria-hidden="true"></i></div>
+          <div class="ach-icon"><i class="fa-solid fa-people-group" aria-hidden="true"></i></div>
           <div class="ach-name">General Secretary</div>
           <div class="ach-sub">IEEE ITSS &middot; Nirma University</div>
           <p class="ach-desc">Organized ITS workshops, coordinated speakers, and drove student participation across events.</p>
@@ -444,23 +442,30 @@
         <div class="github-stats-row">
           <div class="gh-stat-card">
             <div class="gh-stat-icon"><i class="fa-solid fa-fire" aria-hidden="true"></i></div>
-            <div class="gh-stat-val">Active</div>
-            <div class="gh-stat-label">Contributor</div>
-          </div>
-          <div class="gh-stat-card">
-            <div class="gh-stat-icon"><i class="fa-solid fa-code-pull-request" aria-hidden="true"></i></div>
-            <div class="gh-stat-val">17+</div>
-            <div class="gh-stat-label">Repositories</div>
+            <div class="gh-stat-val" id="gh-repos">--</div>
+            <div class="gh-stat-label">Public Repositories</div>
           </div>
           <div class="gh-stat-card">
             <div class="gh-stat-icon"><i class="fa-solid fa-star" aria-hidden="true"></i></div>
-            <div class="gh-stat-val">Python</div>
+            <div class="gh-stat-val" id="gh-stars">--</div>
+            <div class="gh-stat-label">Total Stars</div>
+          </div>
+          <div class="gh-stat-card">
+            <div class="gh-stat-icon"><i class="fa-solid fa-code" aria-hidden="true"></i></div>
+            <div class="gh-stat-val" id="gh-top-language">--</div>
             <div class="gh-stat-label">Top Language</div>
           </div>
         </div>
-        <div class="github-imgs">
-          <img src="https://github-readme-stats-eight-theta.vercel.app/api?username=Shrey-Panwala&show_icons=true&hide_border=true&bg_color=141414&title_color=818cf8&icon_color=818cf8&text_color=f0f0f0&ring_color=818cf8" alt="GitHub stats for Shrey Panwala" loading="lazy" decoding="async">
-          <img src="https://github-readme-stats-eight-theta.vercel.app/api/top-langs/?username=Shrey-Panwala&layout=compact&hide_border=true&bg_color=141414&title_color=818cf8&text_color=f0f0f0" alt="Top programming languages for Shrey Panwala" loading="lazy" decoding="async">
+        <div class="github-live-meta" id="gh-meta">
+          <span class="gh-meta-pill"><i class="fa-solid fa-users" aria-hidden="true"></i> Followers: <strong id="gh-followers">--</strong></span>
+          <span class="gh-meta-pill"><i class="fa-solid fa-code-fork" aria-hidden="true"></i> Following: <strong id="gh-following">--</strong></span>
+          <span class="gh-meta-pill"><i class="fa-solid fa-file-code" aria-hidden="true"></i> Public Gists: <strong id="gh-gists">--</strong></span>
+        </div>
+        <p class="github-note" id="gh-note">Loading live GitHub stats...</p>
+        <div class="github-lang-list" id="gh-language-list" aria-label="Top GitHub languages"></div>
+        <div class="github-updated" id="gh-updated"></div>
+        <div class="github-fallback" id="gh-fallback" hidden>
+          Live stats could not be loaded right now. Please refresh to retry.
         </div>
         <div class="github-action"><a href="https://github.com/Shrey-Panwala" target="_blank" rel="noopener noreferrer" class="btn btn-fill"><i class="fa-brands fa-github" aria-hidden="true"></i> View Repositories</a></div>
       </div>
@@ -521,7 +526,6 @@
             <div class="contact-cta-emoji"><i class="fa-solid fa-rocket" aria-hidden="true"></i></div>
             <h4 class="contact-cta-title">Open to opportunities</h4>
             <p class="contact-cta-desc">Research internships, AI project collaborations, and full-time roles - I'm always open to a conversation.</p>
-            <a href="#contact-form" class="btn btn-fill btn-sm"><i class="fa-solid fa-paper-plane" aria-hidden="true"></i> Send a Message</a>
           </div>
         </div>
       </div>
@@ -533,7 +537,7 @@
   <div class="footer-gradient"></div>
   <div class="footer-inner">
     <div class="footer-left">
-      <div class="footer-logo">shrey.ai</div>
+      <div class="footer-logo">Shrey Panwala</div>
       <div class="footer-tagline">Building applied AI systems with measurable proof.</div>
     </div>
     <div class="footer-center">
